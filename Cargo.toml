@@ -1,0 +1,29 @@
+cargo-features = ["profile-rustflags"]
+
+[package]
+name = "pbz-savecrypt"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "pbz_savecrypt"
+path = "src/lib.rs"
+
+[[bin]]
+name = "pbz-savecrypt"
+path = "src/main.rs"
+
+[dependencies]
+aes-gcm = "0.11"
+anyhow = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
+opt-level = "s"
+panic = "abort"
+trim-paths = "all"
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"]
